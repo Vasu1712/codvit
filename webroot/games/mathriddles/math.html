@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Math Riddle</title>
+  <!-- <link rel="stylesheet" href="style.css"> -->
+  <style>
+    :root {
+      --primary-color: #ffffff;
+      --background-gradient: linear-gradient(#000000, #19191b);
+      --text-color: #a0a0a0;
+      --accent-color: #ffffff;
+      --border-radius: 10px;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      background: var(--background-gradient);
+      color: var(--primary-color);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 400;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .choose-your-level {
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .level-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      width: 90%;
+      max-width: 600px;
+      margin: 0.5rem auto;
+    }
+
+    .imp-message {
+      padding-bottom: 0.5rem;
+      text-align: center !important;
+      font-size: 0.5rem;
+      font-weight: 200;
+      color: #a0a0a0;
+      font-style: italic;
+      margin-left: 5rem;
+    }
+    
+    .level-grid button {
+      padding: 8px;
+      font-size: 1rem;
+      font-weight: 300;
+      border: 0.5px solid var(--accent-color);
+      background: transparent;
+      color: var(--accent-color);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    
+    .level-grid button:hover {
+      background: var(--accent-color);
+      color: #000;
+    }
+
+    .back-button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      font-weight: 500;
+      border: 1px solid var(--accent-color);
+      background: transparent;
+      color: var(--accent-color);
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    }
+
+    .back-button:hover {
+      background: var(--accent-color);
+      color: #000;
+      transform: scale(1.05); /* Slight zoom effect on hover */
+    }
+
+    .level-header {
+      display: flex;
+      align-items: center;
+      justify-content: center; /* Center horizontally */
+      width: 100%;
+      padding: 0.5rem 0;
+      position: relative;
+    }
+    
+    .level-header h2 {
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--accent-color);
+      text-align: center;
+    }
+
+    .level-back-button {
+      font-size: 1rem;
+      border: none;
+      background: transparent;
+      color: var(--accent-color);
+      cursor: pointer;
+      font-weight: bold;
+      padding-top: 4px !important;
+      margin-left: -10px !important;
+    }
+
+    .riddle-container {
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .answer-input {
+        width: 80%;
+        max-width: 400px;
+        padding: 10px;
+        margin: 20px auto;
+        font-size: 1rem;
+        border: 0.1px solid var(--accent-color);
+        border-radius: 10px;
+        background-color: #000;
+        color: var(--accent-color);
+    }
+    
+    .submit-button {
+      width: 50%;
+      align-self: center;
+      padding: 10px 20px;
+      font-size: 1rem;
+      display: block;
+      margin: 10px;
+      border: 1px solid var(--accent-color);
+      background: var(--accent-color);
+      color: #000;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    
+    .submit-button:hover {
+      transform: scale(1.05);
+    }
+
+    #nextLevelButton {
+        display: block;
+        margin: 0 auto;
+        min-width: 100px;
+    }
+    
+    .button-container {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+      }
+    
+      .options-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin: 10px 0;
+      }
+      
+      .option-button {
+        width: 90%;
+        max-width: 400px;
+        padding: 10px;
+        background-color: #121212;
+        border: 1px solid var(--accent-color);
+        border-radius: 10px;
+        color: var(--accent-color);
+        cursor: pointer;
+        text-align: left;
+        transition: background-color 0.3s ease;
+      }
+      
+      .option-button:hover {
+        background-color: #222;
+      }
+      
+      .option-button.selected {
+        background-color: var(--accent-color);
+        color: #000;
+      }
+
+    .riddle-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 600px;
+      margin: auto;
+    }
+    
+    .riddle-header h2 {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--accent-color);
+      text-align: center;
+      flex-grow: 1;
+    }
+    
+    .back-button.small {
+      padding: 5px 10px;
+      font-size: 0.9rem;
+      border: none;
+      background: transparent;
+      color: var(--accent-color);
+      cursor: pointer;
+      font-weight: bold;
+    }
+    
+    .back-button.small:hover {
+      color: var(--primary-color);
+    }
+
+    .mathRiddle {
+      width: 100%;
+      max-width: 900px;
+      font-size: 1rem;
+      font-weight: 300;
+      color: gray;
+      text-align: justify;
+      margin: 10px auto;
+    }
+    
+    #riddleTitle {
+      color: rgb(186, 186, 186);
+      font-size: 1rem;
+      font-weight: 500;
+      text-align: left;
+      display: block;
+      visibility: visible;
+  }
+
+      /* Apply blur effect to the main container */
+    .blur-background {
+      filter: blur(8px);
+      pointer-events: none;
+    }
+
+    /* Style the next level button */
+    #nextLevelButton {
+      display: none;
+      align-items: center;
+      padding: 10px 15px;
+      font-size: 1.2rem;
+      background-color: #ffffff;
+      color: rgb(16, 16, 16);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .error-message {
+      font-weight: bold;
+      padding: 8px;
+      margin: 10px 0;
+      border-radius: 4px;
+      background-color: rgba(255, 0, 0, 0.1);
+      transition: opacity 0.3s ease;
+    }
+    
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: 15px 0;
+    }
+    
+    .result-button {
+      transition: all 0.3s ease;
+    }
+    
+    .result-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    
+
+    @media (max-width: 640px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .level-grid button {
+        font-size: 0.9rem;
+        padding: 8px 12px;
+      }
+
+      .level-header h2 {
+        font-size: 1.2rem;
+      }
+    
+      .mathRiddle {
+        font-size: 0.75rem;
+        width: 100%;
+        line-height: 1.075rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="levelSelectionContainer">
+    <div class="level-header">
+      <a href="../../page.html">
+        <button class="level-back-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M11.53 6.47a.75.75 0 0 1 0 1.06l-3.72 3.72H18a.75.75 0 0 1 0 1.5H7.81l3.72 3.72a.75.75 0 1 1-1.06 1.06l-5-5a.75.75 0 0 1 0-1.06l5-5a.75.75 0 0 1 1.06 0"/></svg>
+        </button>
+      </a>
+      <p class="choose-your-level">Choose Your Level</p>
+    </div>
+    <span class="imp-message">** use 2 fingers to scroll down</span>
+    <div class="level-grid" id="levelGrid">
+      
+    </div>
+  </div>
+  
+  <div class="riddle-container" id="riddleContainer" style="display: none;" data-riddle-id="">
+    <div class="riddle-header">
+      <button class="back-button small" id="backButton">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M11.53 6.47a.75.75 0 0 1 0 1.06l-3.72 3.72H18a.75.75 0 0 1 0 1.5H7.81l3.72 3.72a.75.75 0 1 1-1.06 1.06l-5-5a.75.75 0 0 1 0-1.06l5-5a.75.75 0 0 1 1.06 0"/></svg>
+      </button>
+      <h2 id="riddleHeading">Level X</h2>
+    </div>
+    <p id="riddleTitle"></p>
+    <p class="mathRiddle" id="mathRiddle">Loading riddle...</p>
+    <div id="optionsContainer" class="options-container">
+        
+    </div>
+    <div id="loader" style="display: none;">
+        <p> Loading...</p>
+      </div>
+    <div id="errorMessage" class="error-message" style="display: none; color: red; text-align: center; margin: 10px 0;"></div>
+    <div class="button-container" id="buttonContainer">
+        <button class="submit-button" id="submitButton">Submit</button>
+        <p id="resultMessage" style="margin-top: 10px; font-size: 1.2rem; font-weight: bold; color: var(--accent-color);"></p>
+        <button id="nextLevelButton" style="display: none; margin-top: 20px;" onclick="goToNextLevel()">
+          Next Level
+        </button>
+    </div>
+  </div>
+  <script type="module" src="math.js"></script>
+</body>
+</html>

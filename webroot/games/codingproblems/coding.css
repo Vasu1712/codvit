@@ -1,0 +1,68 @@
+.level-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    width: 90%;
+    max-width: 600px;
+    margin: 20px auto;
+  }
+  
+  .level-grid button {
+    padding: 15px;
+    font-size: 1.2rem;
+    border: 1px solid var(--accent-color);
+    background: transparent;
+    color: var(--accent-color);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  
+  .level-grid button:hover {
+    background: var(--accent-color);
+    color: #000;
+  }
+
+  .level-header {
+    flex: auto;
+    flex-direction: row;
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  .problem-container {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  #codeEditor {
+    width: 90%;
+    height: 200px;
+    margin: 20px auto;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1rem;
+    border: 1px solid var(--accent-color);
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #000;
+    color: var(--accent-color);
+  }
+  
+  .submit-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    margin: 10px;
+    border: 1px solid var(--accent-color);
+    background: var(--accent-color);
+    color: #000;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  
+  .submit-button:hover {
+    transform: scale(1.05);
+  }
+  
+
+  
